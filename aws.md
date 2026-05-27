@@ -9,6 +9,10 @@
 - [Demystify attestation: Cryptographically verify execution environment (CMP317)](https://www.youtube.com/watch?v=Acr-OoA7jew)
 - [Innovating with AWS Confidential Computing: An Integrated Approach (CMP407)](https://www.youtube.com/watch?v=R2QxpJDEmY4)
 
+## Summary
+
+AWS markets the Nitro stack under its CC umbrella. AWS Nitro significantly reduces hypervisor attack surface by moving virtualization into hardware and minimizing privileged software. This gives strong operational security. However, AWS generally does not provide full TDX/SEV-SNP style memory encryption or confidential GPU VRAM isolation.
+
 ## Evaluation
 
 AWS has two TEE offerings that are usable today
