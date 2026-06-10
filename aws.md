@@ -97,4 +97,4 @@ EC2 instance attestation is available for Amazon Linux 2023. Its use case is for
 
 ### Confidential Computing on AWS Elastic Kubernetes Service (EKS)
 
-Confidential computing on EKS is provided by Nitro Enclaves (see above), or confidential containers.
+Confidential computing on EKS is provided by Nitro Enclaves (see above), or confidential containers. See [this tutorial](https://confidentialcontainers.org/docs/examples/aws-simple/) for confidential containers.
