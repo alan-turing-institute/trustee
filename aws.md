@@ -1,5 +1,13 @@
 #  TEE Evaluation on AWS
 
+## TODO
+- SEV-SNP instances
+- EKS Nitro enclaves
+  - Test how to deploy these
+- EKS confidential containers
+  - Confidential nodepool
+  - pods vs nodes as TEEs
+
 ## References
 
 - [Amazon EC2 instance attestation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm-attestation.html)
@@ -46,6 +54,24 @@ See [getting started](https://docs.aws.amazon.com/enclaves/latest/user/getting-s
 1. Build an enclave image file (e.g. from a Docker container)
 2. Run and validate using tools in `nitro-cli`
 
+### SEV-SNP on AWS
+
+You can enable SEV-SNP memory encryption on select AWS instance types and AMIs. See [requirements](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snp-work-launch.html). To enable SEV-SNP, use `--cpu-options AmdSevSnp=enabled` in the AWS CLI, or `Advanced details - AMD SEV-SNP - Enabled`.
+
+You can then verify that SEV-SNP is enabled by
+
+```
+ubuntu@ip-172-31-47-198:~$ sudo dmesg | grep -i -e rmp -e sev
+[    3.207940] Memory Encryption Features active: AMD SEV SEV-ES SEV-SNP
+[    3.209941] SEV: Status: SEV SEV-ES SEV-SNP
+[    3.330965] SEV: APIC: wakeup_secondary_cpu() replaced with wakeup_cpu_via_vmgexit()
+[    3.694232] SEV: Using SNP CPUID table, 38 entries present.
+[    3.707953] SEV: SNP running at VMPL0.
+[    4.904153] SEV: SNP guest platform devices initialized.
+[   14.594861] sev-guest sev-guest: Initialized SEV guest driver (using VMPCK0 communication key)
+```
+There is a [tutorial for getting an attestation report from AMD](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snp-attestation.html).
+
 ### EC Instance Attestation
 
 EC2 Instance Attestation is a measured boot attestation system. With it, an user can
@@ -68,3 +94,7 @@ EC2 instance attestation is available for Amazon Linux 2023. Its use case is for
 1. Build an attestable AMI. See [tutorial](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/build-sample-ami.html)
 2. Get a Nitro TPM attestation document. See [tutorial](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/attestation-get-doc.html)
 3. Attest with a Key Management System, e.g. Amazon KMS. See [tutorial](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/prepare-attestation-service.html)
+
+### Confidential Computing on AWS Elastic Kubernetes Service (EKS)
+
+Confidential computing on EKS is provided by Nitro Enclaves (see above), or confidential containers.
